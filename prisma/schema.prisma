@@ -1,6 +1,6 @@
 datasource db {
-  provider = "postgresql" // use "sqlite" for local dev
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator client {
