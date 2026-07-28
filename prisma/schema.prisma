@@ -1,0 +1,47 @@
+datasource db {
+  provider = "postgresql" // use "sqlite" for local dev
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+}
+
+model Order {
+  id              Int      @id @default(autoincrement())
+  customerContact String?
+  amountCrypto    Float
+  amountCfa       Float
+  network         String
+  receivingAddr   String
+  status          String   @default("pending")
+  txHash          String?
+  confirmations   Int?     
+  createdAt       DateTime @default(now())
+  expiresAt       DateTime
+}
+
+model WalletAddress {
+  id        Int      @id @default(autoincrement())
+  network   String   @unique
+  address   String
+  active    Boolean  @default(true)
+  rotatedAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  actorId   Int
+  action    String
+  targetId  Int?
+  metadata  String?
+  createdAt DateTime @default(now())
+}
