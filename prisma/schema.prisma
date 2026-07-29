@@ -23,7 +23,7 @@ model Order {
   receivingAddr   String
   status          String   @default("pending")
   txHash          String?
-  confirmations   Int?     
+  confirmations   Int?
   createdAt       DateTime @default(now())
   expiresAt       DateTime
 }
